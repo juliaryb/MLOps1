@@ -138,6 +138,7 @@ celerybeat.pid
 .env
 .envrc
 .venv
+.venv-tools
 env/
 venv/
 ENV/
@@ -208,3 +209,10 @@ __marimo__/
 
 # ignore model artifacts for lab1 homework
 lab01/homework/models
+
+# ignore data in lab 2
+lab02/lab/data/disruptions-2023.csv
+lab02/lab/data/duckdb_trains.db
+lab02/lab/data/duckdb_trains.db.wal
+lab02/lab/data/late_train.jsonl
+lab02/lab/data/services-2024.csv
