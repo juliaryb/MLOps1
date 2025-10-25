@@ -4,9 +4,9 @@ repos:
      hooks:
         - id: ruff  # Linter
           args: [--fix]  # Ensure fixes are applied
-          files: ^lab01/(lab|homework)/
+          files: ^lab0[1-9]/(lab|homework)/
         - id: ruff-format  # Formatter
-          files: ^lab01/(lab|hw)/
+          files: ^lab0[1-9]/(lab|homework)/
  
    # monitor code complexity
    - repo: https://github.com/rubik/xenon
@@ -21,4 +21,5 @@ repos:
      hooks:
         - id: mypy # type checker
           files: ^lab01/homework/
-          additional_dependencies: ['torch', 'transformers', 'joblib', 'clean-text']
+          additional_dependencies: ['torch', 'transformers', 'joblib', 'clean-text', 'sentence_transformers', 'fastapi', 'pydantic']
+          # args: [--explicit-package-bases]

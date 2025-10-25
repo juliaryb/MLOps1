@@ -1,15 +1,20 @@
 from sentence_transformers import SentenceTransformer
 import joblib
 
-SENTIMENT_LABELS = {0: "negative", 1: "neutral", 2: "positive"} # hardcoded class names
+SENTIMENT_LABELS = {0: "negative", 1: "neutral", 2: "positive"}  # hardcoded class names
 
-def load_models(transformer_path="models/sentence_transformer.model", classifier_path="models/classifier.joblib"):
+
+def load_models(
+    transformer_path="models/sentence_transformer.model",
+    classifier_path="models/classifier.joblib",
+):
     transformer = SentenceTransformer(transformer_path)
     classifier = joblib.load(classifier_path)
 
     return transformer, classifier
 
-def predict(text_input: str, transformer, classifier) -> str: 
+
+def predict(text_input: str, transformer, classifier) -> str:
     """
     Performs sentiment analysis by:
     1. Embedding the input text using the specified Sentence Transformer.
