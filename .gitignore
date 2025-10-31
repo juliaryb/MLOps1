@@ -218,3 +218,6 @@ lab02/lab/data/duckdb_trains.db.wal
 lab02/lab/data/late_train.jsonl
 lab02/lab/data/services-2024.csv
 lab02/lab/data/services_2024_duckdb.tsv
+lab02/lab/data/services-2024.json
+lab02/lab/data/services-2024.jsonl
+lab02/lab/data/services-2024.parquet
