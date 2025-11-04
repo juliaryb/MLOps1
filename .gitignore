@@ -229,3 +229,7 @@ lab02/homework/data/services.parquet
 lab02/homework/data/stations*.csv
 lab02/homework/data/tariff*.csv
 lab02/homework/data/duckdb_trains.db
+
+lab03/data
+lab03/pyproject.toml
+lab03/uv.lock
