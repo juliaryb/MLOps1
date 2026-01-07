@@ -4,9 +4,9 @@ repos:
      hooks:
         - id: ruff  # Linter
           args: [--fix]  # Ensure fixes are applied
-          files: ^lab0[1-9]
+          files: ^lab0[1-7]
         - id: ruff-format  # Formatter
-          files: ^lab0[1-9]
+          files: ^lab0[1-7]
  
    # monitor code complexity
    - repo: https://github.com/rubik/xenon
