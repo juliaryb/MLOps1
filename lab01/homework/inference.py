@@ -1,13 +1,16 @@
 from sentence_transformers import SentenceTransformer
 import joblib
+import s3_artifacts
 
 SENTIMENT_LABELS = {0: "negative", 1: "neutral", 2: "positive"}  # hardcoded class names
 
 
 def load_models(
-    transformer_path="models/sentence_transformer.model",
-    classifier_path="models/classifier.joblib",
+    transformer_path="model/sentence_transformer.model",
+    classifier_path="model/classifier.joblib",
 ):
+    s3_artifacts.download_models_from_s3()
+
     transformer = SentenceTransformer(transformer_path)
     classifier = joblib.load(classifier_path)
 

@@ -209,6 +209,7 @@ __marimo__/
 
 # ignore model artifacts for lab1 homework
 lab01/homework/models
+lab01/homework/model
 
 # ignore data in lab 2
 lab02/lab/data/disruptions-2023.csv
