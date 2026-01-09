@@ -1,20 +1,24 @@
-I'm using the Learner Lab
+### *I'm using the Learner Lab*
 
-# 1.3
-1. Installed AWS CLI
+### 1.3 Connect to AWS using the CLI
+- install AWS CLI
 ![](screenshots/001.png)
 
-2. Started lab -> connected to AWS using CLI
-(important to update this file with new credentials if the current session expires)
+- start lab -> connect to AWS using CLI
+(important to update the '~/.aws/credentials' file with new credentials if the current session expires)
 ![](screenshots/002.png)
 
-# 2. Amazon S3 setup and file management
+### 2. Amazon S3 setup and file management
 - open Console Home -> storage -> create an S3 bucket
     ![](screenshots/003.png)
+
 - download model
+
 - upload to S3 (used the AWS S3 console)
     ![](screenshots/004.png)
+
 - delete models from "models" directory in the app from Lab 1
+
 - add S3 files download script `s3_artifacts.py`:
     ```python
     import boto3
