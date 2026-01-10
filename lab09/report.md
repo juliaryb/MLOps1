@@ -49,3 +49,15 @@
 - check if app works:
     ![](screenshots/005.png)
     ![](screenshots/006.png)
+
+### 3. Elastic Container Registry (ECR) & Docker management
+*"It provides secure, scalable storage for your Docker images, tightly integrated with other AWS services."*
+
+- create the ECR
+    ![](screenshots/007.png)
+    ![](screenshots/008.png)
+
+- authenticate Docker client to ECR
+    ![](screenshots/009.png)
+    ***Comment:** Docker authentication to ECR initially failed due to an uninitialised pass credential store. I disabled credential storage locally and authentication then succeeded. Credential helper setup was skipped for simplicity, as this is a local lab environment.*
+
