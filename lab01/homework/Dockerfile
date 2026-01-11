@@ -4,16 +4,22 @@ FROM python:3.12-slim-bookworm
 # Set working directory
 WORKDIR /app
 
+# Install required system dependencies
+RUN apt-get update && apt-get install -y \
+    curl libsnappy-dev make gcc g++ libc6-dev libffi-dev \
+    && rm -rf /var/lib/apt/lists/*
+
 # Install uv package manager
-RUN curl -LsSf https://astral.sh/uv/install.sh | sh
+RUN curl -LsSf https://astral.sh/uv/install.sh | sh && \
+    export PATH="/root/.local/bin:$PATH"
 
 # Add uv to PATH
 ENV PATH="/root/.local/bin:$PATH"
 
-# Copy dependency files first (for caching)
+# Copy only dependency files first (to leverage caching)
 COPY pyproject.toml uv.lock ./
 
-# Install Python dependencies
+# Install project dependencies using uv
 ENV UV_PROJECT_ENVIRONMENT=/usr/local
 RUN uv sync
 

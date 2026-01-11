@@ -48,6 +48,8 @@
     ```
 - check if app works:
     ![](screenshots/005.png)
+
+- see preview in FastApi
     ![](screenshots/006.png)
 
 ### 3. Elastic Container Registry (ECR) & Docker management
@@ -61,3 +63,55 @@
     ![](screenshots/009.png)
     ***Comment:** Docker authentication to ECR initially failed due to an uninitialised pass credential store. I disabled credential storage locally and authentication then succeeded. Credential helper setup was skipped for simplicity, as this is a local lab environment.*
 
+- build the app Docker image
+    ![](screenshots/010.png)
+
+- tag it with the ECR URI and push to the ECR repo
+    ![](screenshots/011.png)
+    ![](screenshots/012.png)
+
+
+### 4. Virtual Private Cloud (VPC) configuration
+
+- create a new VPC
+    ![](screenshots/013.png)
+    ![](screenshots/014.png)
+
+- create public and private subnets in different AZs
+    ![](screenshots/015.png)
+    ![](screenshots/016.png)
+
+- set up an Internet Gateway
+    ![](screenshots/017.png)
+    ![](screenshots/018.png)
+
+- configure route tables
+    "Public route tables enable external communication for public subnets, while private route tables keep backend resources isolated."
+    - the public route table
+        ![](screenshots/019.png)
+        ![](screenshots/020.png)
+        - add a route to allow interner access
+            ![](screenshots/021.png)
+
+    - the private route table
+        ![](screenshots/022.png)
+
+- set up a NAT Gateway
+    "NAT Gateway allows instances in private subnets to access the internet without exposing them to inbound traﬃc."
+        ![](screenshots/023.png)
+        ![](screenshots/024.png)
+
+    - Update the private route table to route internet-bound traﬃc through the NAT Gateway:
+        ![](screenshots/025.png)
+        ![](screenshots/026.png)
+
+- create Security Groups
+    - App Load Balancer SG
+        ![](screenshots/027.png)
+    - Resources SG
+        ![](screenshots/028.png)      
+
+    ![](screenshots/029.png)   
+
+- set up an Application Load Balancer (ALB)
+    "Application Load Balancer (ALB) distributes incoming traﬃc across multiple targets to avoid overloading a single instance with traﬃc, which minimizes latency and maximizes throughput."
