@@ -72,7 +72,7 @@
 
 
 ### 4. Virtual Private Cloud (VPC) configuration
-
+A private network in AWS that orchestrates the traffic.
 - create a new VPC
     ![](screenshots/013.png)
     ![](screenshots/014.png)
@@ -97,7 +97,7 @@
         ![](screenshots/022.png)
 
 - set up a NAT Gateway
-    "NAT Gateway allows instances in private subnets to access the internet without exposing them to inbound traﬃc."
+    "NAT Gateway allows instances in private subnets to access the internet '(e.g. to pull images, call APIs)' without exposing them to inbound traﬃc."
         ![](screenshots/023.png)
         ![](screenshots/024.png)
 
@@ -115,3 +115,71 @@
 
 - set up an Application Load Balancer (ALB)
     "Application Load Balancer (ALB) distributes incoming traﬃc across multiple targets to avoid overloading a single instance with traﬃc, which minimizes latency and maximizes throughput."
+
+    - Target Group
+    ![](screenshots/030.png)
+
+    - Application Load Balancer
+    ![](screenshots/031.png)
+    ![](screenshots/032.png)
+    ![](screenshots/033.png)
+
+### 5. AWS Fargate deployment & CloudWatch configuration
+#### 5.1 Create an ECS Cluster
+![](screenshots/034.png)
+
+#### 5.2 Create a Task Definition
+![](screenshots/035.png)
+![](screenshots/036.png)
+
+#### 5.3 Create a Service
+![](screenshots/037.png)
+![](screenshots/038.png)
+![](screenshots/039.png)
+![](screenshots/040.png)
+![](screenshots/041.png)
+![](screenshots/042.png)
+
+#### 5.4 Running the service
+
+### It didn't work :) - Lessons learnt:
+- so for some reason I didn't check if the Docker image worked locally... 
+- it failed, which was hard to find in AWS
+- turns out I was using the `python:3.12-slim-bookworm` base image but didn't update the lock file and the .python-version file to match the python version of that image
+- after setting `requires-python = ">=3.12"` in `pyproject.toml` and rebuilding the Docker image, I checked if it works locally, and it did, so I tagged it and pushed again to ECR, and then updated the Task Definition and ECS Service to use that task definition and forced deployment
+- then it run, said the app is running, but it wasn't reachable from the ALB's DNS "503 Service Unavailable"
+- apparently when the lab said to "Availability Zones: Select the VPC created earlier and both public subnets." all AZs were supposed to be checked (both where private and public subnets were), fixed that and the app FINALLY loaded properly
+
+#### Let's continue
+- checking Tasks logs
+![](screenshots/043.png)
+
+#### 6. Application testing and monitoring
+6.1 Test the application
+- Load Balancer DNS name in a web browser, enter sample text and check if the app works
+![](screenshots/044.png)
+
+- or a simple test script
+    ```
+    import requests
+
+    BASE_URL = "http://sentiment-app-alb-994361147.us-east-1.elb.amazonaws.com"
+
+    response = requests.post(
+        f"{BASE_URL}/predict",
+        json={"text": "This lab maybe took a while but aws was tough"}
+    )
+
+    print("Status code:", response.status_code)
+    print("Response:", response.json())
+
+    assert response.status_code == 200
+    assert "prediction" in response.json()
+    ```
+    which results in a pass
+    ![](screenshots/045.png)
+
+- CloudWatch - the basic monitoring service at AWS
+    ![](screenshots/046.png)
+    ![](screenshots/047.png)
+    ![](screenshots/048.png)
